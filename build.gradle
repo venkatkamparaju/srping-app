@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+war.archiveName 'spring-app.war'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.5.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.5.1.RELEASE'
+    compile 'mysql:mysql-connector-java:6.0.5'
+    compile 'org.apache.commons:commons-dbcp2:2.1.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:1.5.1.RELEASE'    
+} 

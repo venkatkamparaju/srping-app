@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<http realm="MY APP REALM"> 
+	    <csrf disabled="true"/>
+		<intercept-url  pattern="/user/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<http-basic  entry-point-ref="basicAuthenticationEntryPoint" />
+	</http>
+	<beans:bean name="bcryptEncoder"
+	      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>	
+	<beans:bean name="myAppUserDetailsService"
+	      class="com.concretepage.service.MyAppUserDetailsService"/>
+	<beans:bean class="com.concretepage.service.ArticleService"/>
+	<beans:bean name="basicAuthenticationEntryPoint"
+	      class="com.concretepage.service.MyAppBasicAuthenticationEntryPoint"/>		      
+	<authentication-manager>
+		<authentication-provider user-service-ref="myAppUserDetailsService">
+		    <password-encoder ref="bcryptEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+	<global-method-security secured-annotations="enabled" />
+</beans:beans> 
